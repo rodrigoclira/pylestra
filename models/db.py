@@ -86,11 +86,11 @@ Palestrante = db.define_table('palestrante',
 
 Palestra = db.define_table('palestra',
                            Field('titulo','string',length=250,label='Título'),
-                           Field('palestrante',db.palestrante,unique="True"),
+                           Field('palestrante',db.palestrante,),
                            Field('tag','string',length=100,label='Tag',comment='Para mais de uma colocar ;\
                                  (ponto e vírgula) entre elas'),
                            Field('duracao','string',length=100,label='Duração'),
-                           Field('mes','date',label='Mês',comment='Mês que deseja palestrar'),
+                           Field('mes','string',label='Mês',comment='Mês que deseja palestrar'),
                            Field('requisitos','string',comment='Internet, Lab com computadores ...'),
                            Field('descricao','text',label='Descrição da palestra'),
                            Field('criada_em','date',default=request.now)
@@ -117,7 +117,8 @@ db.palestra.palestrante.requires = IS_IN_DB(db,'palestrante.id','%(nome)s')
 db.palestra.tag.requires = IS_NOT_EMPTY()
 db.palestra.duracao.requires = IS_IN_SET(duracao)
 db.palestra.mes.requires = IS_IN_SET([mes.capitalize() for mes in calendar.month_name if mes]) # iterator onde month_name[0] = '' , month_name[1]='janeiro' ...
-db.palestra.descricao.requires = [IS_NOT_EMPTY(),IS_LENGTH(minsize=50)]
+db.palestra.descricao.requires = [IS_LENGTH(minsize=50)]
+
 
 
 db.palestrante.nome.requires = IS_NOT_EMPTY()
@@ -127,15 +128,15 @@ db.palestrante.foto.requires = IS_NULL_OR(IS_IMAGE(extensions=extensao,error_mes
 
 db.palestrante.telefone.requires = IS_NOT_EMPTY() # @TODO Colocar expressão regular IS_MATCH
 db.palestrante.email.requires = [IS_NOT_EMPTY(),IS_EMAIL(error_message='E-mail inválido')]
-db.palestrante.site.requires = IS_GENERIC_URL()
+db.palestrante.site.requires = IS_URL()
 db.palestrante.curriculo.requires = IS_LENGTH(minsize=50)
 db.palestrante.telefone.requires = IS_MATCH('[0-9]{10}',error_message='O número de telefone possui 10 dígitos')
 
 
 db.palestra.id.readable = False
 db.palestra.id.writatble = False
-#db.palestra.criada_em.writable = False
-db.palestra.criada_em.readable = False
+db.palestra.criada_em.writable = False
+db.palestra.criada_em.readable = True
 
 
 db.palestrante.id.readable = False
