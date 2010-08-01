@@ -1,0 +1,14 @@
+{{extend 'layout.html'}}
+<h1>Últimas palestras adicionadas</h1>
+<hr>
+<table>
+    {{for palestra in palestras:}}
+    <tr>
+        <div class='palestra'>
+            <td>{{=A(IMG(_src=URL(r=request,c='palestrante',f='show',args=palestra.palestrante.foto),_width=45,_height=38),_href=URL(r=request,c='palestrante',f='detalhe',args=palestra.palestrante.id))}}</td>
+            <td>{{=A(palestra.titulo,_href=URL(r=request,f='detalhe',args=palestra.id))}} <br /> por {{=A(palestra.palestrante.nome,_href=URL(r=request,c='palestrante',f='detalhe',args=palestra.palestrante.id),_target='_blank')}}</td>
+            
+        </div>    
+    </tr>
+    {{pass}}
+</table>

@@ -1,0 +1,44 @@
+{{extend 'layout.html'}}
+
+{{if not palestra:}}
+<h1>palestra inválida</h1>
+{{else:}}
+<div class='palestra' id='{{=palestra.id}} width='30px'>
+    {{=H1(palestra.titulo)}}
+    <small>por {{=A(palestra.palestrante.nome,_href=URL(r=request,c='palestrate',f='detalhe',args=palestra.palestrante.id),_target='_blank')}}
+    em {{=palestra.criada_em.strftime('%d do %m de %Y')}}</small>
+
+    <br \><br />
+        <table>
+            <tr>
+                <td>{{=H2('Descrição')}}</td>
+                <td>{{=palestra.descricao}}</td>
+            </tr>
+            
+            <tr>
+                <td>{{=B('Requisitos')}}</td>
+                <td>{{=palestra.requisitos}}</td>
+            </tr>
+            <tr>
+                <td>{{=B('Duração')}}</td>
+                <td>{{=palestra.duracao}}</td>
+            </tr>
+            <tr>
+                <td>{{=B('Mês desejado')}}</td>
+                <td>{{=A(palestra.mes,_href=URL(r=request,c='palestra',f='listar',vars={'mes':mes}),_target='_blank')}}
+            </tr>
+            <tr>
+                <td>{{=B('TAGs')}}</td>
+                <td>
+                {{for tag in filter(None,map(lambda x: x.strip().lower(),palestra.tag.split(';'))):}}
+                {{=A(tag,_href=URL(r=request,c='palestra',f='listar',vars={'tag':tag}),target='_blank') }}
+                {{pass}}
+                <td>
+            </tr>
+        </table>
+        
+{{pass}}
+    </center>
+</div>
+
+
