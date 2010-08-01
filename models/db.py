@@ -126,7 +126,7 @@ db.palestrante.foto.requires = IS_NULL_OR(IS_IMAGE(extensions=extensao,error_mes
                                                    que é uma imagem em um dos seguintes formatos png, jpg ou gif'))
                                 #IS_LENGTH(maxsize= 10*1024*1024)] # Máximo 10 mb
 
-db.palestrante.telefone.requires = IS_NOT_EMPTY() # @TODO Colocar expressão regular IS_MATCH
+db.palestrante.telefone.requires = IS_NOT_EMPTY()
 db.palestrante.email.requires = [IS_NOT_EMPTY(),IS_EMAIL(error_message='E-mail inválido')]
 db.palestrante.site.requires = IS_URL()
 db.palestrante.curriculo.requires = IS_LENGTH(minsize=50)
@@ -136,7 +136,7 @@ db.palestrante.telefone.requires = IS_MATCH('[0-9]{10}',error_message='O número
 db.palestra.id.readable = False
 db.palestra.id.writatble = False
 db.palestra.criada_em.writable = False
-db.palestra.criada_em.readable = True
+db.palestra.criada_em.readable = False  
 
 
 db.palestrante.id.readable = False
