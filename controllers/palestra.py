@@ -5,10 +5,12 @@ def index():
     palestras = db().select(Palestra.ALL,orderby=~Palestra.id)
     return dict(palestras=palestras)
 
-def adicionar():
+@auth.requires_login()
+def cadastrar():
     form = SQLFORM(Palestra)
     if form.accepts(request.post_vars,session):
         response.flash='Adicionado com sucesso'
+        redirect(URL(r=request,f="index"))
     return dict(form=form)
 
 def detalhe():

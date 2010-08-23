@@ -5,7 +5,7 @@
 {{else:}}
 <div class='palestra' id='{{=palestra.id}} width='30px'>
     {{=H1(palestra.titulo)}}
-    <small>por {{=A(palestra.palestrante.nome,_href=URL(r=request,c='palestrate',f='detalhe',args=palestra.palestrante.id),_target='_blank')}}
+    <small>por {{=A(palestra.palestrante.username,_href=URL(r=request,c='palestrate',f='detalhe',args=palestra.palestrante.id),_target='_blank')}}
     em {{=palestra.criada_em.strftime('%d do %m de %Y')}}</small>
 
     <br \><br />
